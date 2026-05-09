@@ -100,6 +100,8 @@ Open: https://localhost:8080
 
 ## 📁 Project Structure
 
+```
+
 DeployWatch/
 ├── app/                    # Flask application
 │   ├── src/app.py          # Main application
@@ -109,4 +111,6 @@ DeployWatch/
 ├── argocd/                 # ArgoCD manifests
 ├── monitoring/             # Prometheus & Grafana configs
 └── docs/images/            # Screenshots
+
+```
 
