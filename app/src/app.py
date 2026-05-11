@@ -9,7 +9,7 @@ def home():
     return jsonify({
         "app": "DeployWatch",
         "status": "running",
-        "message": "Automated deployment and monitoring system - v3.0 Live - Faizan"
+        "message": "Automated deployment and monitoring system - v3.0 Live"
     })
 
 @app.route('/health')
