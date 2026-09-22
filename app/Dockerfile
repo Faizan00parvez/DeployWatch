@@ -1,4 +1,4 @@
-# Stage 1 - Dependencies install karo
+# Stage 1 — install dependencies
 FROM python:3.11-slim AS builder
 
 WORKDIR /app
@@ -7,20 +7,21 @@ COPY src/requirements.txt .
 
 RUN pip install --no-cache-dir --user -r requirements.txt
 
-# Stage 2 - Final lightweight image
+# Stage 2 — final lightweight image
 FROM python:3.11-slim
 
 WORKDIR /app
 
-# Builder se sirf installed packages copy karo
+# Copy only the installed packages from the builder stage
 COPY --from=builder /root/.local /root/.local
 
-# App ka code copy karo
+# Copy the application code
 COPY src/ .
 
 ENV PATH=/root/.local/bin:$PATH
-ENV FLASK_ENV=production
+ENV PYTHONUNBUFFERED=1
 
 EXPOSE 5000
 
-CMD ["python", "app.py"]
+# Serve with gunicorn (production WSGI server) instead of Flask's dev server
+CMD ["gunicorn", "--bind", "0.0.0.0:5000", "--workers", "2", "--timeout", "60", "app:app"]
